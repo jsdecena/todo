@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37fc157b-8755-46f5-a8b0-3a0c3c54ddca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/api/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/database/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/database/todo.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/todo.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
