@@ -30,7 +30,7 @@
                 <div v-else>
                   <button type="button" v-on:click.prevent="markAsDone(list)" class="btn btn-success"><i class="fa fa-check"></i> Mark as done</button>
                 </div>
-                  <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Delete todo</button>
+                  <button type="button" v-on:click.prevent="deleteTodo(list)" class="btn btn-danger"><i class="fa fa-trash"></i>Delete todo</button>
                 </div>
               </td>
             </tr>
@@ -72,7 +72,6 @@
           is_finished: 1
         }).then((response) => {
           this.listTodo()
-          this.todo = null
         })
       },
       markAsUnDone: function(list) {
@@ -80,9 +79,13 @@
           is_finished: 0
         }).then((response) => {
           this.listTodo()
-          this.todo = null
         })
-      }      
+      },
+      deleteTodo: function(list) {
+        this.$http.delete('http://127.0.0.1:8000/api/todo/' + list.id).then((response) => {
+          this.listTodo().splice(list.id, 1)
+        })
+      }
     }
   }
 </script>
