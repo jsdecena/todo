@@ -28,6 +28,18 @@ class TodoApiController extends Controller
     }
 
     /**
+     * List all Todo
+     *
+     * @Todo Paginate
+     *
+     * @return JsonResponse
+     */
+    public function index()
+    {
+        return response()->json(['data' => $this->todoRepository->listAllTodo()]);
+    }
+
+    /**
      * Create the Todo via Http Request
      *
      * @param CreateTodoRequest $request

@@ -2,6 +2,7 @@
 
 namespace Todo\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Todo\Exceptions\CreateTodoErrorException;
@@ -43,6 +44,8 @@ class TodoRepository
     }
 
     /**
+     * Find a todo row by ID
+     *
      * @param int $id
      * @return Todo
      * @throws TodoNotFoundErrorException
@@ -57,6 +60,8 @@ class TodoRepository
     }
 
     /**
+     * Update a Todo
+     *
      * @param array $data
      * @return bool
      * @throws UpdateTodoErrorException
@@ -71,6 +76,8 @@ class TodoRepository
     }
 
     /**
+     * Delete the Todo
+     *
      * @return bool
      * @throws DeleteTodoErrorException
      */
@@ -81,5 +88,15 @@ class TodoRepository
         } catch (QueryException $e) {
             throw new DeleteTodoErrorException($e, 400);
         }
+    }
+
+    /**
+     * List all Todo
+     *
+     * @return Collection
+     */
+    public function listAllTodo(): Collection
+    {
+        return $this->model->all();
     }
 }

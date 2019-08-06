@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Todo\Exceptions\CreateTodoErrorException;
 use Todo\Exceptions\DeleteTodoErrorException;
@@ -12,6 +13,22 @@ use Todo\Todo;
 
 class TodoUnitTest extends TestCase
 {
+    /**
+     * @test
+     *
+     * @dataProvider todoProvider
+     */
+    public function it_can_list_all_todo($data)
+    {
+        factory(Todo::class)->create($data);
+
+        $todoRepository = new TodoRepository(new Todo);
+        $lists = $todoRepository->listAllTodo();
+
+        $this->assertInstanceOf(Collection::class, $lists);
+        $this->assertCount(1, $lists->all());
+    }
+
     /**
      * @test
      *

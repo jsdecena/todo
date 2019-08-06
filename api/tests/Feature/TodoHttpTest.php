@@ -13,6 +13,21 @@ class TodoHttpTest extends TestCase
      * @dataProvider todoProvider
      * @param $data
      */
+    public function it_should_list_all_todo($data)
+    {
+        factory(Todo::class)->create($data);
+
+        $this->get(route('todo.index'))
+            ->assertStatus(200)
+            ->assertJsonFragment($data);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider todoProvider
+     * @param $data
+     */
     public function it_should_delete_the_todo($data)
     {
         $todo = $created = factory(Todo::class)->create($data);
