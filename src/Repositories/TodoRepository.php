@@ -38,7 +38,7 @@ class TodoRepository
         try {
             return $this->model->create($data);
         } catch (QueryException $e) {
-            throw new CreateTodoErrorException($e);
+            throw new CreateTodoErrorException($e, 400);
         }
     }
 
@@ -52,7 +52,7 @@ class TodoRepository
         try {
             return $this->model->findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new TodoNotFoundErrorException($e);
+            throw new TodoNotFoundErrorException($e, 404);
         }
     }
 
@@ -66,7 +66,7 @@ class TodoRepository
         try {
             return $this->model->update($data);
         } catch (QueryException $e) {
-            throw new UpdateTodoErrorException($e);
+            throw new UpdateTodoErrorException($e, 400);
         }
     }
 
@@ -79,7 +79,7 @@ class TodoRepository
         try {
             return $this->model->delete();
         } catch (QueryException $e) {
-            throw new DeleteTodoErrorException($e);
+            throw new DeleteTodoErrorException($e, 400);
         }
     }
 }
