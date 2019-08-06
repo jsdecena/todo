@@ -16,11 +16,21 @@
           </thead>
           <tbody>
             <tr v-for="(list, idx) in lists.data" :key="idx">
-              <td>{{list.title}}</td>
+              <td>
+                <span v-if="list.is_finished == 1">
+                  <s>{{list.title}}</s>
+                </span>
+                <span v-else>{{list.title}}</span>
+              </td>
               <td>
                 <div class="btn-group">
-                  <button class="btn btn-success"><i class="fa fa-check"></i> Mark as done</button>
-                  <button class="btn btn-danger"><i class="fa fa-trash"></i>Delete todo</button>
+                <div v-if="list.is_finished == 1">
+                  <button type="button" v-on:click.prevent="markAsUnDone(list)" class="btn btn-info"><i class="fa fa-check"></i> Mark as undone</button>
+                </div>
+                <div v-else>
+                  <button type="button" v-on:click.prevent="markAsDone(list)" class="btn btn-success"><i class="fa fa-check"></i> Mark as done</button>
+                </div>
+                  <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i>Delete todo</button>
                 </div>
               </td>
             </tr>
@@ -56,7 +66,23 @@
           this.listTodo()
           this.todo = null
         })
-      }
+      },
+      markAsDone: function(list) {
+        this.$http.put('http://127.0.0.1:8000/api/todo/' + list.id, {
+          is_finished: 1
+        }).then((response) => {
+          this.listTodo()
+          this.todo = null
+        })
+      },
+      markAsUnDone: function(list) {
+        this.$http.put('http://127.0.0.1:8000/api/todo/' + list.id, {
+          is_finished: 0
+        }).then((response) => {
+          this.listTodo()
+          this.todo = null
+        })
+      }      
     }
   }
 </script>
