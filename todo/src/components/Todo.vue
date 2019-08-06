@@ -7,6 +7,12 @@
         <input v-model="todo" type="text" class="form-control" id="todo" placeholder="What to do today?">
       </div>
       <div id="listing">
+        <p v-if="msg" class="alert alert-success alert-dismissible fade show" role="alert">
+          {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>          
+        </p>
         <table class="table">
           <thead>
             <tr>
@@ -46,6 +52,7 @@
   export default {
     data () {
       return {
+        msg: null,
         todo: null,
         lists: []
       }
@@ -72,6 +79,7 @@
           is_finished: 1
         }).then((response) => {
           this.listTodo()
+          this.msg = 'Todo is now done.'
         })
       },
       markAsUnDone: function(list) {
@@ -79,12 +87,17 @@
           is_finished: 0
         }).then((response) => {
           this.listTodo()
+          this.msg = 'Todo has been undone.'
         })
       },
       deleteTodo: function(list) {
-        this.$http.delete('http://127.0.0.1:8000/api/todo/' + list.id).then((response) => {
-          this.listTodo().splice(list.id, 1)
-        })
+        if(confirm("Are you sure you really want to delete?")){
+          this.$http.delete('http://127.0.0.1:8000/api/todo/' + list.id)
+            .then((response) => {
+              this.listTodo().splice(list.id, 1)
+          })
+          this.msg = 'Todo deleted!'
+        }
       }
     }
   }
