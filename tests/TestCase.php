@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
         return [
             [
                 [
-                    'title' => $faker->randomElement(['eat', 'run', ]),
+                    'title' => $faker->randomElement(['eat', 'run', 'sleep', 'jump', 'drink', 'play', 'sing']),
                     'is_finished' => 0
                 ]
             ]
