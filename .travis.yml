@@ -11,6 +11,7 @@ cache:
 
 before_script:
   - cd api
+  - touch database/todo.sqlite
   - cp .env.testing .env
   - composer install --no-interaction
   - composer dump-autoload

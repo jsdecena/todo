@@ -1,5 +1,7 @@
 # Simple Todo App
 
+[![Build Status](https://travis-ci.org/jsdecena/todo.svg?branch=master)](https://travis-ci.org/jsdecena/todo)
+
 ## Installation
 
 - Clone (or fork) this repository
