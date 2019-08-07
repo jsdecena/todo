@@ -2,6 +2,7 @@
 
 namespace Todo\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -94,10 +95,11 @@ class TodoRepository
     /**
      * List all Todo
      *
-     * @return Model
+     * @param array $data
+     * @return Builder
      */
-    public function listAllTodo(): Model
+    public function queryBy(array $data = []): Builder
     {
-        return $this->model;
+        return $this->model->where($data);
     }
 }

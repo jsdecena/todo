@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Todo\Exceptions\CreateTodoErrorException;
@@ -23,10 +24,10 @@ class TodoUnitTest extends TestCase
         factory(Todo::class)->create($data);
 
         $todoRepository = new TodoRepository(new Todo);
-        $lists = $todoRepository->listAllTodo();
+        $lists = $todoRepository->queryBy();
 
-        $this->assertInstanceOf(Collection::class, $lists);
-        $this->assertCount(1, $lists->all());
+        $this->assertInstanceOf(Builder::class, $lists);
+        $this->assertCount(1, $lists->get());
     }
 
     /**

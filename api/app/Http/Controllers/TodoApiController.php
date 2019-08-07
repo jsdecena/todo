@@ -36,7 +36,7 @@ class TodoApiController extends Controller
      */
     public function index()
     {
-        $lists = $this->todoRepository->listAllTodo()->orderBy('id', 'desc')->get();
+        $lists = $this->todoRepository->queryBy()->orderBy('id', 'desc')->get();
 
         return response()->json(['data' => $lists]);
     }
