@@ -3,13 +3,14 @@ import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-library.add(faCoffee)
+library.add(fas)
+
 Vue.use(VueAxios, axios)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
