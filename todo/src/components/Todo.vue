@@ -8,7 +8,7 @@
           <form class="form-horizontal" v-on:submit.prevent="onSubmit()">
             <div class="form-group">
               <label for="todo" class="sr-only">What to do?</label>
-              <input v-model="todo" type="text" class="form-control" id="todo" placeholder="What to do today?">
+              <input v-model="todo" type="text" class="form-control" id="todo" placeholder="What to do today?" autofocus>
             </div>
             <div id="listing">
               <p v-if="msg" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -62,6 +62,14 @@
                 <input v-model="domain" type="text" class="form-control" placeholder="Type a domain: eg. google.com">
                 <button type="submit" class="btn btn-primary">Search</button>
               </div>
+              <hr>
+              <p class="alert alert-info" v-if="searching">Searching ...</p>
+              <div class="form-group" v-if="searchResult && !searching">
+                  <h3 class="text-left">Search Result:</h3>
+                  <ul class="list-unstyled float-left">
+                    <li v-for="(result, idx) in searchResult" :key="idx"><span class="pull-left">{{idx}}:</span> &nbsp; <strong>{{result}}</strong> </li>
+                  </ul>
+              </div>
             </div>
           </form>
         </div>
@@ -79,6 +87,8 @@
         todo: null,
         lists: [],
         domain: null,
+        searchResult: null,
+        searching: false
       }
     },
     created () {
@@ -124,10 +134,13 @@
         }
       },
       onSearch: function() {
+        this.searching = true;
         this.$http.post('http://127.0.0.1:8000/api/search', {
           domain: this.domain
         }).then((response) => {
-          return response.data
+          this.searching = false;
+          this.searchResult = response.data.DomainInfo
+          this.domain = null
         })
       }
     }
