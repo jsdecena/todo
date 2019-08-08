@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Todo\Exceptions\CreateTodoErrorException;
@@ -143,6 +145,30 @@ class TodoApiController extends Controller
                 'error' => 'We encountered an error when deleting your Todo, please try again.',
                 'code' => $e->getCode()
             ], $e->getCode());
+        }
+    }
+
+    /**
+     * Lookup for a domain
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function lookup(Request $request)
+    {
+        try {
+
+            $base = 'https://domain-availability-api.whoisxmlapi.com';
+            $segment = '/api/v1?apiKey=at_PUHH5fMhG6w8arMcCVEds2TiCeGok&domainName=' . $request->input('domain');
+            $url = $base . $segment;
+
+            $client = new Client;
+            $response = $client->request('GET', $url);
+
+            return json_decode($response->getBody(), true);
+
+        } catch (GuzzleException $e) {
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 }

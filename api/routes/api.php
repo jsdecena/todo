@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('todo', 'TodoApiController');
+Route::post('search', 'TodoApiController@lookup');
