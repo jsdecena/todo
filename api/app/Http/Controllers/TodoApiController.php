@@ -159,7 +159,9 @@ class TodoApiController extends Controller
         try {
 
             $base = 'https://domain-availability-api.whoisxmlapi.com';
-            $segment = '/api/v1?apiKey=at_PUHH5fMhG6w8arMcCVEds2TiCeGok&domainName=' . $request->input('domain');
+            $domain = $this->remove_protocol($request->input('domain'));
+
+            $segment = '/api/v1?apiKey=at_PUHH5fMhG6w8arMcCVEds2TiCeGok&domainName=' . $domain;
             $url = $base . $segment;
 
             $client = new Client;
@@ -170,5 +172,18 @@ class TodoApiController extends Controller
         } catch (GuzzleException $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+    }
+
+    /**
+     * @param $url
+     * @return mixed
+     */
+    private function remove_protocol($url) {
+        foreach(['http://', 'https://'] as $d) {
+            if(strpos($url, $d) === 0) {
+                return str_replace($d, '', $url);
+            }
+        }
+        return $url;
     }
 }
